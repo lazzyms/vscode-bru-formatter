@@ -22,7 +22,9 @@
     "api",
     "rest"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:bru"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "languages": [

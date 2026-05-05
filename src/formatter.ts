@@ -109,7 +109,11 @@ export function formatBruDocument(text: string): string {
         const inner = lines[i];
         const innerTrimmed = inner.trimEnd();
 
-        if (innerTrimmed === "}") {
+        const isBlockClose = raw
+          ? innerTrimmed === "}"
+          : innerTrimmed.trim() === "}";
+
+        if (isBlockClose) {
           blockLines.push("}");
           i++;
           break;
@@ -131,8 +135,9 @@ export function formatBruDocument(text: string): string {
 
       blocks.push(blockLines.join("\n"));
     } else {
-      // Non-block top-level content is passed through unchanged
-      blocks.push(trimmed);
+      // Non-block top-level content is passed through unchanged (except
+      // trailing whitespace trimming).
+      blocks.push(line.trimEnd());
       i++;
     }
   }
