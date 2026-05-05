@@ -83,6 +83,31 @@ npm run build
 npm test
 ```
 
+## Publishing
+
+The extension is published to the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=lazzyms.vscode-bru-formatter) automatically via GitHub Actions whenever a new version tag is pushed.
+
+### Release steps
+
+1. Bump the `version` field in `package.json` (follow [semver](https://semver.org/)).
+2. Commit the version bump and push to `master`.
+3. Create and push a matching `vX.Y.Z` tag:
+   ```bash
+   git tag v0.2.0
+   git push origin v0.2.0
+   ```
+
+The [publish workflow](.github/workflows/publish.yml) will then:
+- Install dependencies and run all tests.
+- Bundle the extension with esbuild (`vscode:prepublish`).
+- Publish to the VS Code Marketplace using the `VSCE_PAT` repository secret.
+- Attach the packaged `.vsix` file to the GitHub Release created for the tag.
+
+### Setting up the `VSCE_PAT` secret
+
+1. Generate a Personal Access Token (PAT) in [Azure DevOps](https://dev.azure.com) with the **Marketplace (Publish)** scope (see the [official guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token)).
+2. Add it as a repository secret named **`VSCE_PAT`** under *Settings → Secrets and variables → Actions*.
+
 ## License
 
 MIT
