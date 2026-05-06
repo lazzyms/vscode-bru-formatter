@@ -1,0 +1,66 @@
+{
+  "name": "vscode-bru-formatter",
+  "displayName": "Bruno Formatter",
+  "description": "Formatter for Bruno (.bru) API request files",
+  "version": "0.1.0",
+  "publisher": "lazzyms",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lazzyms/vscode-bru-formatter.git"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "keywords": [
+    "bruno",
+    "bru",
+    "formatter",
+    "api",
+    "rest"
+  ],
+  "activationEvents": [
+    "onLanguage:bru"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "bru",
+        "aliases": [
+          "Bruno",
+          "bru"
+        ],
+        "extensions": [
+          ".bru"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[bru]": {
+        "editor.defaultFormatter": "lazzyms.vscode-bru-formatter"
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "node esbuild.js",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "node esbuild.js",
+    "test": "mocha --require ts-node/register 'src/test/**/*.test.ts'"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.5",
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^3.3.2",
+    "esbuild": "^0.20.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
